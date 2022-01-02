@@ -23,17 +23,15 @@ connectToDb(`${conf.mongo.uri}`, `${conf.mongo.db}`).then((db: Db) => {
   ctx.consume(ctx.handle);
   sub.get('/health', ctx.health.check);
   sub.patch('/log', ctx.log.config);
-  app.post('/post', (req, res) => {
-    // Change method to 'publish' for topic and 'queue' for queue
-    ctx.publisher.publish(req.body).catch(err => {
-      res.json({ error: err });
-    });
-    res.json({ message: 'message was published' });
+  http.createServer(sub).listen(conf.sub_port, () => {
+    console.log('Start sub server at port ' + conf.sub_port);
+  });
+  app.post('/send', (req, res) => {
+    // Change method to 'produce' for topic and 'queue' for queue
+    ctx.produce(req.body).then(r => res.json({ message: 'message was published' }))
+      .catch(err => res.json({ error: err }));
   });
   http.createServer(app).listen(conf.port, () => {
     console.log('Start server at port ' + conf.port);
-  });
-  http.createServer(sub).listen(conf.sub_port, () => {
-    console.log('Start sub server at port ' + conf.sub_port);
   });
 });

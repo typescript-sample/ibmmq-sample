@@ -1,5 +1,5 @@
 {
-  "name": "pubsub-sample",
+  "name": "ibmmq-sample",
   "version": "1.0.0",
   "description": "",
   "main": "app",
@@ -21,7 +21,6 @@
     "mongodb": "3.7.3",
     "mongodb-extension": "^0.1.9",
     "mq-one": "^0.1.5",
-    "mysql-core": "^0.1.14",
     "xvalidators": "^0.0.3"
   },
   "devDependencies": {

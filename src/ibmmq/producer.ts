@@ -27,13 +27,13 @@ export class Producer<T> {
     this.queue = this.queue.bind(this);
     this.publish = this.publish.bind(this);
   }
-  put(data: T): Promise<number> {
+  put(data: T): Promise<void> {
     return this.publish(data);
   }
-  produce(data: T): Promise<number> {
+  produce(data: T): Promise<void> {
     return this.publish(data);
   }
-  publish(data: T): Promise<number> {
+  publish(data: T): Promise<void> {
     const lg = this.logInfo;
     const lgErr = this.logError;
     return new Promise((resolve, reject) => {
@@ -116,7 +116,7 @@ export class Producer<T> {
       });
     });
   }
-  queue(data: T): Promise<number> {
+  queue(data: T): Promise<void> {
     const lg = this.logInfo;
     const lgErr = this.logError;
     return new Promise((resolve, reject) => {

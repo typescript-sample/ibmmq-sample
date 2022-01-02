@@ -17,7 +17,7 @@ export const config = {
     2: 15000,
     3: 25000,
   },
-  ibm_mq: {
+  ibmmq: {
     interval: 10000,
     service: 'ibmmq',
     connection: 'ibm_mq(1414)',

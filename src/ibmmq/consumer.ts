@@ -103,7 +103,7 @@ export class Consumer<T> {
       this.mq.Get(hObj, this.mqmd, this.gmo, getCBSub);
     };
 
-    const getCBSub = async (err: { mqrc?: any; message?: string; }, hObj: any, gmo: any, md: { Format: string; }, buf: string, hConn: any) => {
+    const getCBSub = async (err: { mqrc?: any; message?: string; }, hObj: any, gmo: any, md: { Format: string; }, buf: string) => {
       // If there is an error, prepare to exit by setting the ok flag to false.
       if (err) {
         if (err.mqrc === this.MQC.MQRC_NO_MSG_AVAILABLE) {
@@ -222,7 +222,7 @@ export class Consumer<T> {
      * include the message descriptor and the buffer containing
      * the message data.
      */
-    const getCB = async (err: { mqrc?: any; message?: string; }, hObj: any, gmo: any, md: { Format: string; }, buf: string, hConn: any) => {
+    const getCB = async (err: { mqrc?: any; message?: string; }, hObj: any, gmo: any, md: { Format: string; }, buf: string) => {
       // If there is an error, prepare to exit by setting the ok flag to false.
       if (err) {
         if (err.mqrc === MQC.MQRC_NO_MSG_AVAILABLE) {
