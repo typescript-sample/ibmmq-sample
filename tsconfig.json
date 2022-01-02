@@ -1,0 +1,25 @@
+{
+  "compileOnSave": true,
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "target": "es5",
+    "baseUrl": "./src",
+    "outDir": "./es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "pretty": true,
+    "strict": true,
+    "sourceMap": false,
+    "esModuleInterop": true,
+    "declaration": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": false,
+    "removeComments": true
+  }
+}

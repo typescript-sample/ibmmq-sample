@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "a08456a8-f611-4593-b67d-38b454702352",
+		"name": "mq",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "health check",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "config log",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"level\": \"DEBUG\",\n    \"map\": {\n        \"msg\": \"message\",\n        \"time\": \"@timestamp\"\n    },\n    \"constants\": {\n        \"app\": \"123\",\n        \"service\": \"user-service\"\n    },\n    \"name\": {\n        \"trace\": \"trace\",\n        \"debug\": \"debug\",\n        \"info\": \"info\",\n        \"warn\": \"warn\",\n        \"error\": \"error\",\n        \"panic\": \"panic\",\n        \"fatal\": \"fatal\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/log",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"log"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
