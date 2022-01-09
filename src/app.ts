@@ -1,7 +1,6 @@
-import { json } from 'body-parser';
 import { merge } from 'config-plus';
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { json } from 'express';
 import * as http from 'http';
 import { Db } from 'mongodb';
 import { connectToDb } from 'mongodb-extension';

@@ -11,7 +11,6 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "body-parser": "^1.19.1",
     "config-plus": "^0.0.4",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
