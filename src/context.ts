@@ -63,7 +63,7 @@ export function useContext(db: Db, conf: Conf): ApplicationContext {
   const handler = new Handler<User, string>(writer.write, validator.validate, retries, errorHandler.error, logger.error, logger.info);
 
   const producer = new Producer<User>(conf.ibmmq, logger.error, logger.info);
-  return { health, log, produce: producer.produce, consume: consumer.subscribe, handle: handler.handle };
+  return { health, log, produce: producer.produce, consume: consumer.queue, handle: handler.handle };
 }
 export function writeUser(msg: User): Promise<number> {
   console.log('Error: ' + JSON.stringify(msg));

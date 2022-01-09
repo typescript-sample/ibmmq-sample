@@ -46,7 +46,8 @@ export class Producer<T> {
       const qMgr = this.conf.mgr;
       const topicString = this.conf.topic;
       // Define some functions that will be used from the main flow
-      const publishMessage = (hObj: any) => {
+      const publishMessage = (hObj: any): boolean => {
+        let succeed = true;
         const msg = JSON.stringify(data as any);
         const mqmd = new this.mq.MQMD(); // Defaults are fine.
         const pmo = new this.mq.MQPMO();
@@ -63,6 +64,7 @@ export class Producer<T> {
           if (err) {
             if (lgErr) {
               lgErr(formatErr(err));
+              succeed = false;
             }
           } else {
             if (lg) {
@@ -70,6 +72,7 @@ export class Producer<T> {
             }
           }
         });
+        return succeed;
       };
       // The program really starts here.
       // Connect to the queue manager. If that works, the callback function
@@ -83,6 +86,7 @@ export class Producer<T> {
         if (err) {
           if (lgErr) {
             lgErr(formatErr(err));
+            return reject(formatErr(err));
           }
         } else {
           if (lg) {
@@ -105,13 +109,16 @@ export class Producer<T> {
             if (err1) {
               if (lgErr) {
                 lgErr(formatErr(err1));
+                return reject(formatErr(err1));
               }
               cleanup(this.mq, hConn, hObj, lgErr, lg);
             } else {
               if (lg) {
                 lg(`MQOPEN of ${topicString} successful`);
               }
-              publishMessage(hObj);
+              if (publishMessage(hObj)) {
+                return resolve();
+              }
             }
           });
         }
@@ -203,7 +210,8 @@ export class TopicProducer<T> {
       // The DEV.BASE.TOPIC object defines a tree starting at dev/
       const qMgr = this.conf.mgr;
       // Define some functions that will be used from the main flow
-      const publishMessage = (hObj: any) => {
+      const publishMessage = (hObj: any): boolean => {
+        let ok = true;
         const msg = JSON.stringify(data as any);
         const mqmd = new this.mq.MQMD(); // Defaults are fine.
         const pmo = new this.mq.MQPMO();
@@ -220,6 +228,7 @@ export class TopicProducer<T> {
           if (err) {
             if (lgErr) {
               lgErr(formatErr(err));
+              ok = false;
             }
           } else {
             if (lg) {
@@ -227,6 +236,7 @@ export class TopicProducer<T> {
             }
           }
         });
+        return ok;
       };
       // The program really starts here.
       // Connect to the queue manager. If that works, the callback function
@@ -262,13 +272,16 @@ export class TopicProducer<T> {
             if (err1) {
               if (lgErr) {
                 lgErr(formatErr(err1));
+                return reject(formatErr(err1));
               }
               cleanup(this.mq, hConn, hObj, lgErr, lg);
             } else {
               if (lg) {
                 lg(`MQOPEN of ${topic} successful`);
               }
-              publishMessage(hObj);
+              if (publishMessage(hObj)) {
+                resolve();
+              }
             }
           });
         }
@@ -342,11 +355,13 @@ export class QueueProducer<T> {
         .then(() => {
           if (lg) {
             lg('Done.');
+            return resolve();
           }
         })
         .catch((err: { message: string; }) => {
           if (lgErr) {
             lgErr(formatErr(err));
+            return reject(formatErr(err));
           }
           cleanup(this.mq, this.ghConn, this.ghObj, lgErr, lg);
         });
