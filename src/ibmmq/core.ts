@@ -1,13 +1,21 @@
-export interface IBMMQConfig {
+export interface BaseConfig {
   connection: string;
   service: string;
   mgr: string; // qMgr
   channel: string;
   user: string;
   password: string;
+  interval: number; // waitInterval
+}
+export interface TopicConfig extends BaseConfig {
+  topic: string;
+}
+export interface QueueConfig extends BaseConfig {
+  queue: string; // queueName
+}
+export interface IBMMQConfig extends BaseConfig {
   topic: string;
   queue: string; // queueName
-  interval: number; // waitInterval
 }
 
 function formatErr(err: { message: string; }) {
@@ -39,7 +47,7 @@ export function cleanup(mq: any, hConn: any, hObj: any, logErr?: (msg: string) =
     });
   });
 }
-export function authentication(mq: any, conf: IBMMQConfig): any {
+export function authentication(mq: any, conf: BaseConfig): any {
   const MQC = mq.MQC;
   const cd = new mq.MQCD();
   cd.ConnectionName = conf.connection;

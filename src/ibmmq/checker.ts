@@ -3,10 +3,6 @@ import { checkIBMQueue, IBMMQConfig } from './core';
 export interface AnyMap {
   [key: string]: any;
 }
-export function createIBMMQChecker(conf: IBMMQConfig, timeout?: number): IBMMQChecker {
-  return new IBMMQChecker(conf, timeout);
-}
-
 export class IBMMQChecker {
   mq: any;
   config: IBMMQConfig;
