@@ -4,7 +4,7 @@
   "description": "",
   "main": "app",
   "scripts": {
-    "start": "nodemon --exec ts-node-dev src/app.ts",
+    "start": "nodemon --exec ts-node-dev src/app",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint -c .eslintrc.js --ext .ts src"
   },
