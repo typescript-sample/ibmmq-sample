@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "express-ext": "0.0.1",
     "ibmmq": "^0.9.19",
+    "ibmmq-extension": "^0.1.2",
     "logger-core": "^0.1.6",
     "mongodb": "3.7.3",
     "mongodb-extension": "^0.1.9",
