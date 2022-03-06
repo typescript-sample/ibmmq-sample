@@ -1,9 +1,9 @@
 import { HealthController, LogController } from 'express-ext';
-import { Consumer, IBMMQChecker, IBMMQConfig, Producer } from 'ibmmq-extension';
+import { Consumer, IBMMQChecker, IBMMQConfig, Producer } from 'ibmmq-plus';
 import { Config, createLogger, map } from 'logger-core';
 import { Db } from 'mongodb';
 import { Attributes, MongoChecker, MongoUpserter } from 'mongodb-extension';
-import { Consume, createRetry, ErrorHandler, Handle, Handler, NumberMap } from 'mq-one';
+import { Consume, createRetry, ErrorHandler, Handle, Handler, NumberMap, Produce } from 'mq-one';
 import { Validator } from 'xvalidators';
 
 export interface User {
@@ -45,7 +45,7 @@ export interface Conf {
 export interface ApplicationContext {
   health: HealthController;
   log: LogController;
-  produce: (data: User) => Promise<void>;
+  produce: Produce<User, void>;
   consume: Consume<User>;
   handle: Handle<User>;
 }
